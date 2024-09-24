@@ -8,6 +8,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
     //Els ViewModels deriven de INotifyPropertyChanged per poder fer Binding de propietats
     class Option1ViewModel : INotifyPropertyChanged
     {
+        // Referència al ViewModel principal
+        private readonly MainViewModel _mainViewModel;
+
         // Col·lecció de Students (podrien carregar-se d'una base de dades)
         // ObservableCollection és una llista que notifica els canvis a la vista
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
@@ -24,8 +27,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand AddStudentCommand { get; set; }
         public RelayCommand DelStudentCommand { get; set; }
 
-        public Option1ViewModel()
+        public Option1ViewModel(MainViewModel mainViewModel)
         {
+            _mainViewModel = mainViewModel;
             // Carreguem estudiants a memòria mode de prova
             Students.Add(new Student { Id = 1, Name = "David" });
             Students.Add(new Student { Id = 2, Name = "Jordi" });

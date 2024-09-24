@@ -37,8 +37,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public MainViewModel()
         {
             // Inicialitzem els diferents ViewModels
-            Option1VM = new Option1ViewModel();
-            Option2VM = new Option2ViewModel();
+            Option1VM = new Option1ViewModel(this);
+            Option2VM = new Option2ViewModel(this);
             // Mostra la vista principal inicialment
             SelectedView = "Option1";
             ChangeView();
