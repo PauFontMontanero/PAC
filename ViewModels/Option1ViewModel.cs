@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using WPF_MVVM_SPA_Template.Models;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
@@ -25,6 +26,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         // RelayCommands connectats via Binding als botons de la vista
         public RelayCommand AddStudentCommand { get; set; }
+        public RelayCommand UpdateStudentCommand { get; set; }
         public RelayCommand DelStudentCommand { get; set; }
 
         public Option1ViewModel(MainViewModel mainViewModel)
@@ -37,6 +39,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             // Inicialitzem els diferents commands disponibles (accions)
             AddStudentCommand = new RelayCommand(x => AddStudent());
             DelStudentCommand = new RelayCommand(x => DelStudent());
+            UpdateStudentCommand = new RelayCommand(x => UpdateStudent());
         }
 
         //Mètodes per afegir i eliminar estudiants de la col·lecció
@@ -49,6 +52,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             if (SelectedStudent != null)
                 Students.Remove(SelectedStudent);
+        }
+        private void UpdateStudent()
+        {
+            MessageBox.Show("olakease");
         }
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
