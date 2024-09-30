@@ -26,6 +26,8 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Afegir" Command="{Binding AddStudentCommand}" Margin="5" Padding="10,5" 
                     Style="{StaticResource ModernPrimaryButtonStyle}"/>
+            <Button Content="Update" Command="{Binding UpdateStudentCommand}" IsEnabled="{Binding SelectedStudent}" 
+                    Margin="5" Padding="10,5" Style="{StaticResource UpdateButtonStyle}"/>
             <Button Content="Eliminar" Command="{Binding DelStudentCommand}" IsEnabled="{Binding SelectedStudent}" 
                     Margin="5" Padding="10,5" Style="{StaticResource ModernSecundaryButtonStyle}"/>
         </StackPanel>
