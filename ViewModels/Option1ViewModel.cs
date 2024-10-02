@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
 
@@ -15,48 +16,70 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         // Col·lecció de Students (podrien carregar-se d'una base de dades)
         // ObservableCollection és una llista que notifica els canvis a la vista
-        public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
+        public ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
 
         // Propietat per controlar l'estudiant seleccionat a la vista
-        private Student? _selectedStudent;
-        public Student? SelectedStudent
+        private Client? _oldClient;
+        public Client? OldClient
         {
-            get { return _selectedStudent; }
-            set { _selectedStudent = value; OnPropertyChanged(); }
+            get { return _oldClient; }
+            set
+            {
+                _oldClient = value;
+                if (_selectedClient != null)
+                {
+                    _oldClient = _selectedClient;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private Client? _selectedClient;
+        public Client? SelectedClient
+        {
+            get { return _selectedClient; }
+            set { _selectedClient = value; OnPropertyChanged(); }
         }
 
         // RelayCommands connectats via Binding als botons de la vista
-        public RelayCommand AddStudentCommand { get; set; }
-        public RelayCommand UpdateStudentCommand { get; set; }
-        public RelayCommand DelStudentCommand { get; set; }
+        public RelayCommand AddClientCommand { get; set; }
+        public RelayCommand UpdateClientCommand { get; set; }
+        public RelayCommand DelClientCommand { get; set; }
 
         public Option1ViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
             // Carreguem estudiants a memòria mode de prova
-            Students.Add(new Student { Id = 1, Name = "David" });
-            Students.Add(new Student { Id = 2, Name = "Jordi" });
+            Clients.Add(new Client { Id = 1, Name = "David", Surname = "Font", Email = "davidfont@gmail.com", Created= DateTime.Now, Telephone = 938586485});
+            Clients.Add(new Client { Id = 2, Name = "Jordi", Surname = "Aumatell", Email = "jordiaumatell@gmail.com", Created = DateTime.Now, Telephone = 938586484 });
 
             // Inicialitzem els diferents commands disponibles (accions)
-            AddStudentCommand = new RelayCommand(x => AddStudent());
-            DelStudentCommand = new RelayCommand(x => DelStudent());
-            UpdateStudentCommand = new RelayCommand(x => UpdateStudent());
+            AddClientCommand = new RelayCommand(x => AddClient());
+            UpdateClientCommand = new RelayCommand(x => UpdateClient());
+            DelClientCommand = new RelayCommand(x => DelClient());
         }
 
         //Mètodes per afegir i eliminar estudiants de la col·lecció
-        private void AddStudent()
+        private void AddClient()
         {
-            Students.Add(new Student { Id = Students.Count + 1, Name = "Nou" });
+            AddClientViewModel AddClientVM = new AddClientViewModel(_mainViewModel, this);
+            _mainViewModel.CurrentView = new AddClientView { DataContext = AddClientVM };
+            //Clients.Add(new Client { Id = Clients.Count + 1, Name = "Nou" });
         }
 
-        private void DelStudent()
+        private void DelClient()
         {
-            if (SelectedStudent != null)
-                Students.Remove(SelectedStudent);
+            if (SelectedClient != null)
+                Clients.Remove(SelectedClient);
         }
-        private void UpdateStudent()
+        private void UpdateClient()
         {
-            _mainViewModel.CurrentView = new UpdateStudentView { DataContext = _mainViewModel.UpdateStudentVM };
+            if (SelectedClient != null)
+            {
+                _oldClient = SelectedClient;
+                UpdateClientViewModel UpdateClientVM = new UpdateClientViewModel(_mainViewModel);
+                _mainViewModel.CurrentView = new UpdateClientView { DataContext = _mainViewModel.UpdateClientVM };
+            }
         }
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels

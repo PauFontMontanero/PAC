@@ -2,9 +2,9 @@
 
 namespace WPF_MVVM_SPA_Template.Views
 {
-    public partial class UpdateStudentView : UserControl
+    public partial class AddClientView : UserControl
     {
-        public UpdateStudentView()
+        public AddClientView()
         {
             InitializeComponent();
         }

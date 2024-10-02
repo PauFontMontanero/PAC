@@ -12,8 +12,6 @@
              SelectedValue="{Binding SelectedView, Mode=TwoWay}" SelectedValuePath="Tag">
             <ListBoxItem Content="Opció 1" Tag="Option1" FontSize="16" Padding="10" 
                          HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
-            <ListBoxItem Content="Opció 2" Tag="Option2" FontSize="16" Padding="10" 
-                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
         </ListBox>
         <!-- Secció de contingut dinàmic (Grid) -->
         <Grid Name="MainContent" Background="White" Margin="10">
