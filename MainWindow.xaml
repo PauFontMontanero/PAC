@@ -5,16 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_SPA_Template"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Background="{DynamicResource WindowBackground}">
     <DockPanel>
         <!-- Barra de navegació lateral estil SPA amb ListBox -->
-        <ListBox DockPanel.Dock="Left" Width="100" Background="#2C3E50" Foreground="White" BorderThickness="0"
-             SelectedValue="{Binding SelectedView, Mode=TwoWay}" SelectedValuePath="Tag">
-            <ListBoxItem Content="Opció 1" Tag="Option1" FontSize="16" Padding="10" 
-                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
-        </ListBox>
+        <StackPanel DockPanel.Dock="Left" Width="100" Background="{DynamicResource SidebarBackground}">
+            <ListBox DockPanel.Dock="Left" Width="100" 
+                     Background="{DynamicResource ListBoxBackground}" 
+                     Foreground="{DynamicResource ListBoxForeground}" 
+                     BorderThickness="0"
+                     SelectedValue="{Binding SelectedView, Mode=TwoWay}" 
+                     SelectedValuePath="Tag">
+                <ListBoxItem Content="Clients" Tag="Option1" 
+                             FontSize="16" 
+                             Padding="10" 
+                             HorizontalContentAlignment="Left" 
+                             Style="{DynamicResource ModernSidebarStyle}"/>
+                <!-- Add more ListBoxItems here if needed -->
+            </ListBox>
+            <Button Content="Change Theme" Command="{Binding ChangeThemeCommand}" 
+                    Margin="0,320,0,0" Height="40" Style="{StaticResource ChangeThemeButton}"/>
+        </StackPanel>
         <!-- Secció de contingut dinàmic (Grid) -->
-        <Grid Name="MainContent" Background="White" Margin="10">
+        <Grid Name="MainContent" Background="{DynamicResource MainContentBackground}" Margin="10">
             <ContentControl Content="{Binding CurrentView}" />
         </Grid>
     </DockPanel>

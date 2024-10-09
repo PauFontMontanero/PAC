@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
              mc:Ignorable="d">
-    <Grid Background="White" Margin="10">
+    <Grid Background="{DynamicResource MainContentBackground}" Margin="10" Cursor="">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -23,7 +23,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Name="LBNom" Content="Nom" VerticalAlignment="Center"/>
-                    <TextBox Name="TBNom" Grid.Column="1" Text="{Binding SelectedClient.Name, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+                    <TextBox Name="TBNom" Grid.Column="1" Text="{Binding SelectedClient.Name, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Background="{DynamicResource TextBoxBackground}"/>
                 </Grid>
 
                 <Grid Margin="0,0,0,10">
@@ -32,7 +32,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Name="LBCognom" Content="Cognom" VerticalAlignment="Center"/>
-                    <TextBox Name="TBCognom" Grid.Column="1" Text="{Binding SelectedClient.Surname, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+                    <TextBox Name="TBCognom" Grid.Column="1" Text="{Binding SelectedClient.Surname, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Background="{DynamicResource TextBoxBackground}"/>
                 </Grid>
 
                 <Grid Margin="0,0,0,10">
@@ -41,7 +41,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Name="LBEmail" Content="Correu Electronic" VerticalAlignment="Center"/>
-                    <TextBox Name="TBEmail" Grid.Column="1" Text="{Binding SelectedClient.Email, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+                    <TextBox Name="TBEmail" Grid.Column="1" Text="{Binding SelectedClient.Email, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Background="{DynamicResource TextBoxBackground}"/>
                 </Grid>
 
                 <Grid Margin="0,0,0,10">
@@ -50,7 +50,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Name="LBTelephone" Content="Telefon" VerticalAlignment="Center"/>
-                    <TextBox Name="TBTelephone" Grid.Column="1" Text="{Binding SelectedClient.Telephone, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+                    <TextBox Name="TBTelephone" Grid.Column="1" Text="{Binding SelectedClient.Telephone, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Background="{DynamicResource TextBoxBackground}"/>
                 </Grid>
 
                 <Grid Margin="0,0,0,10">
@@ -59,15 +59,29 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Name="LBDate" Content="Date of Registration" VerticalAlignment="Center"/>
-                    <TextBox Name="TBDate" Grid.Column="1" Text="{Binding SelectedClient.Created, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+                    <DatePicker Name="TBDate" Grid.Column="1" Margin="10,0,0,0" 
+            SelectedDate="{Binding SelectedClient.Created, UpdateSourceTrigger=PropertyChanged}" 
+            SelectedDateFormat="Long" 
+            Background="{DynamicResource TextBoxBackground}">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="Control.Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType=DatePicker}, StringFormat='dd/MM/yyyy'}"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
                 </Grid>
-
             </StackPanel>
         </DockPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="Accept Changes" Width="120" Height="30" Margin="5" Command="{Binding AcceptChangesCommand}"/>
-            <Button Content="Cancel" Width="120" Height="30" Margin="5" Command="{Binding DeclineCommand}"/>
+            <Button Content="Accept Changes" Width="120" Height="40" Margin="5" Command="{Binding AcceptChangesCommand}" Style="{StaticResource ModernPrimaryButtonStyle}"/>
+            <Button Content="Cancel" Width="120" Height="40" Margin="5" Command="{Binding DeclineCommand}" Style="{StaticResource ModernSecundaryButtonStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>

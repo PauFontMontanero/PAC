@@ -9,7 +9,7 @@ using WPF_MVVM_SPA_Template.Views;
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
     //Els ViewModels deriven de INotifyPropertyChanged per poder fer Binding de propietats
-    class Option1ViewModel : INotifyPropertyChanged
+    class ClientViewModel : INotifyPropertyChanged
     {
         // Referència al ViewModel principal
         private readonly MainViewModel _mainViewModel;
@@ -46,7 +46,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand UpdateClientCommand { get; set; }
         public RelayCommand DelClientCommand { get; set; }
 
-        public Option1ViewModel(MainViewModel mainViewModel)
+        public ClientViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
             // Carreguem estudiants a memòria mode de prova
@@ -64,21 +64,31 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             AddClientViewModel AddClientVM = new AddClientViewModel(_mainViewModel, this);
             _mainViewModel.CurrentView = new AddClientView { DataContext = AddClientVM };
-            //Clients.Add(new Client { Id = Clients.Count + 1, Name = "Nou" });
         }
 
         private void DelClient()
         {
-            if (SelectedClient != null)
-                Clients.Remove(SelectedClient);
+            if (MessageBox.Show("Vols borrar el client?",
+                    "Confirm delete",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (SelectedClient != null)
+                    Clients.Remove(SelectedClient);
+            }
+
         }
+
         private void UpdateClient()
         {
             if (SelectedClient != null)
             {
-                _oldClient = SelectedClient;
-                UpdateClientViewModel UpdateClientVM = new UpdateClientViewModel(_mainViewModel);
-                _mainViewModel.CurrentView = new UpdateClientView { DataContext = _mainViewModel.UpdateClientVM };
+                // Pass 'this' as the second parameter
+                UpdateClientViewModel updateClientVM = new UpdateClientViewModel(_mainViewModel, this)
+                {
+                    SelectedClient = new Client(SelectedClient) // Ensure a copy is passed to avoid direct modification
+                };
+                _mainViewModel.CurrentView = new UpdateClientView { DataContext = updateClientVM };
             }
         }
 

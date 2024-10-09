@@ -9,7 +9,7 @@ internal class AddClientViewModel : INotifyPropertyChanged
 {
     private readonly MainViewModel _mainViewModel;
 
-    private readonly Option1ViewModel _option1ViewModel;
+    private readonly ClientViewModel _option1ViewModel;
 
     // Relay commands for buttons
 
@@ -22,7 +22,7 @@ internal class AddClientViewModel : INotifyPropertyChanged
         get { return _newClient; }
         set { _newClient = value; OnPropertyChanged(); }
     }
-    public AddClientViewModel(MainViewModel mainViewModel, Option1ViewModel option1ViewModel)
+    public AddClientViewModel(MainViewModel mainViewModel, ClientViewModel option1ViewModel)
     {
         _newClient = new Client();
         _newClient.Id = option1ViewModel.Clients.Count + 1;
@@ -35,20 +35,15 @@ internal class AddClientViewModel : INotifyPropertyChanged
     private void AcceptChanges()
     {
         // Create a new client object with the data from the TextBoxes      
-        _mainViewModel.CurrentView = new Option1View { DataContext = _mainViewModel.Option1VM };
-        ClearFields();
+        _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.Option1VM };
         _option1ViewModel.Clients.Add(NewClient);
     }
 
     private void DeclineChanges()
     {
-        _mainViewModel.CurrentView = new Option1View { DataContext = _mainViewModel.Option1VM };
+        _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.Option1VM };
     }
 
-    private void ClearFields()
-    {
-
-    }
 
     // Event for property change notifications
     public event PropertyChangedEventHandler? PropertyChanged;
