@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace WPF_MVVM_SPA_Template.Models
 {
@@ -16,7 +12,10 @@ namespace WPF_MVVM_SPA_Template.Models
         public int? Telephone { get; set; }
         public DateTime? Created { get; set; }
 
+        public static int[] RandomMonthlyValues { get; } = GenerateRandomValues();
+
         public Client() { }
+
         public Client(Client existingClient)
         {
             if (existingClient == null)
@@ -31,6 +30,11 @@ namespace WPF_MVVM_SPA_Template.Models
             Telephone = existingClient.Telephone;
             Created = existingClient.Created;
         }
+
+        private static int[] GenerateRandomValues()
+        {
+            Random random = new Random();
+            return Enumerable.Range(1, 12).Select(_ => random.Next(1, 100)).ToArray();
+        }
     }
-    //Llista de 12 valors aleatoris
 }

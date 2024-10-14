@@ -9,7 +9,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
     internal class UpdateClientViewModel : INotifyPropertyChanged
     {
         private readonly MainViewModel _mainViewModel;
-        private readonly ClientViewModel _option1ViewModel;
+        private readonly ClientViewModel _clientViewModel;
         public RelayCommand AcceptChangesCommand { get; set; }
         public RelayCommand DeclineCommand { get; set; }
 
@@ -33,10 +33,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
         }
 
-        public UpdateClientViewModel(MainViewModel mainViewModel, ClientViewModel option1ViewModel)
+        public UpdateClientViewModel(MainViewModel mainViewModel, ClientViewModel clientViewModel)
         {
             _mainViewModel = mainViewModel;
-            _option1ViewModel = option1ViewModel; // Store the reference
+            _clientViewModel = clientViewModel; // Store the reference
             AcceptChangesCommand = new RelayCommand(x => AcceptChanges());
             DeclineCommand = new RelayCommand(x => DeclineChanges());
         }
@@ -46,15 +46,15 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             if (_selectedClient != null)
             {
                 // Find the existing client in the Clients collection
-                var existingClient = _option1ViewModel.Clients.FirstOrDefault(c => c.Id == _selectedClient.Id);
-                var index = _option1ViewModel.Clients.IndexOf(existingClient);
+                var existingClient = _clientViewModel.Clients.FirstOrDefault(c => c.Id == _selectedClient.Id);
+                var index = _clientViewModel.Clients.IndexOf(existingClient);
                 if (existingClient != null)
                 {
                     // Update the properties of the existing client
-                    _option1ViewModel.Clients[index] = new Client(_selectedClient);
+                    _clientViewModel.Clients[index] = new Client(_selectedClient);
                 }
             }
-            _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.Option1VM };
+            _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
         }
 
         private void DeclineChanges()
@@ -66,7 +66,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 // Revert other properties as needed
                 OnPropertyChanged(nameof(SelectedClient));
             }
-            _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.Option1VM };
+            _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -45,6 +45,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand AddClientCommand { get; set; }
         public RelayCommand UpdateClientCommand { get; set; }
         public RelayCommand DelClientCommand { get; set; }
+        public RelayCommand ShowDataCommand { get; set; }
 
         public ClientViewModel(MainViewModel mainViewModel)
         {
@@ -57,6 +58,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             AddClientCommand = new RelayCommand(x => AddClient());
             UpdateClientCommand = new RelayCommand(x => UpdateClient());
             DelClientCommand = new RelayCommand(x => DelClient());
+            ShowDataCommand = new RelayCommand(x => ShowDataClient());
         }
 
         //Mètodes per afegir i eliminar estudiants de la col·lecció
@@ -91,6 +93,15 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 _mainViewModel.CurrentView = new UpdateClientView { DataContext = updateClientVM };
             }
         }
+        private void ShowDataClient()
+        {
+            if (SelectedClient != null)
+            {
+                GraphsViewModel graphsVM = new GraphsViewModel(_mainViewModel, SelectedClient);
+                _mainViewModel.CurrentView = new GraphsView { DataContext = graphsVM };
+            }
+        }
+
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;

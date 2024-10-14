@@ -34,6 +34,8 @@
                     Margin="5" Padding="10,5" Style="{StaticResource UpdateButtonStyle}"/>
             <Button Content="Eliminar" Command="{Binding DelClientCommand}" IsEnabled="{Binding SelectedClient}" 
                     Margin="5" Padding="10,5" Style="{StaticResource ModernSecundaryButtonStyle}" Cursor="Hand"/>
+            <Button Content="Graph" Command="{Binding ShowDataCommand}" IsEnabled="{Binding SelectedClient}" 
+                    Margin="5" Padding="10,5" Style="{StaticResource ModernSecundaryButtonStyle}" Cursor="Hand"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -9,7 +9,7 @@ internal class AddClientViewModel : INotifyPropertyChanged
 {
     private readonly MainViewModel _mainViewModel;
 
-    private readonly ClientViewModel _option1ViewModel;
+    private readonly ClientViewModel _ClientViewModel;
 
     // Relay commands for buttons
 
@@ -22,12 +22,12 @@ internal class AddClientViewModel : INotifyPropertyChanged
         get { return _newClient; }
         set { _newClient = value; OnPropertyChanged(); }
     }
-    public AddClientViewModel(MainViewModel mainViewModel, ClientViewModel option1ViewModel)
+    public AddClientViewModel(MainViewModel mainViewModel, ClientViewModel clientViewModel)
     {
         _newClient = new Client();
-        _newClient.Id = option1ViewModel.Clients.Count + 1;
+        _newClient.Id = clientViewModel.Clients.Count + 1;
         _mainViewModel = mainViewModel;
-        _option1ViewModel = option1ViewModel;
+        _ClientViewModel = clientViewModel;
         AcceptChangesCommand = new RelayCommand(x => AcceptChanges());
         DeclineCommand = new RelayCommand(x => DeclineChanges());
     }
@@ -35,13 +35,13 @@ internal class AddClientViewModel : INotifyPropertyChanged
     private void AcceptChanges()
     {
         // Create a new client object with the data from the TextBoxes      
-        _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.Option1VM };
-        _option1ViewModel.Clients.Add(NewClient);
+        _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
+        _ClientViewModel.Clients.Add(NewClient);
     }
 
     private void DeclineChanges()
     {
-        _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.Option1VM };
+        _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
     }
 
 

@@ -10,11 +10,14 @@ namespace WPF_MVVM_SPA_Template.ViewModels
     {
 
         // ViewModels de les diferents opcions
-        public ClientViewModel Option1VM { get; set; }
+        public ClientViewModel ClientVM { get; set; }
+        public StartViewModel StartVM { get; set; }
+        public AboutUsViewModel AboutUsVM { get; set; }
+        public ChangeThemeViewModel ChangeThemeVM { get; set; }
         public UpdateClientViewModel UpdateClientVM { get; set; }
         public AddClientViewModel AddClientVM { get; set; }
 
-        public RelayCommand ChangeThemeCommand { get; set; }
+
 
         // Propietat que conté la vista actual (és un objecte)
         private object? _currentView;
@@ -40,12 +43,15 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public MainViewModel()
         {
             // Inicialitzem els diferents ViewModels
-            Option1VM = new ClientViewModel(this);
-            
+            ClientVM = new ClientViewModel(this);
+            StartVM = new StartViewModel(this);
+            ChangeThemeVM = new ChangeThemeViewModel(this);
+            AboutUsVM = new AboutUsViewModel(this);
+
             // Mostra la vista principal inicialment
-            SelectedView = "Option1";
+            SelectedView = "MainPage";
             ChangeView();
-            ChangeThemeCommand = new RelayCommand(x => ChangeTheme());
+
 
         }
 
@@ -54,30 +60,12 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             switch (SelectedView)
             {
-                case "Option1": CurrentView = new ClientView { DataContext = Option1VM }; break;
+                case "Client": CurrentView = new ClientView { DataContext = ClientVM }; break;
+                case "MainPage": CurrentView = new StartView { DataContext = StartVM }; break;
+                case "ChangeTheme": CurrentView = new ChangeThemeView {DataContext = ChangeThemeVM}; break;
+                case "AboutUs": CurrentView = new AboutUsView { DataContext = AboutUsVM }; break;
             }
         }
-
-        private bool _isDarkTheme;
-        private void ChangeTheme()
-        {
-            ResourceDictionary theme = new ResourceDictionary();
-
-            if (_isDarkTheme)
-            {
-                theme.Source = new Uri("pack://application:,,,/Views/Themes/ModernTheme.xaml");
-            }
-            else
-            {
-                theme.Source = new Uri("pack://application:,,,/Views/Themes/ModernDarkTheme.xaml");
-            }
-
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(theme);
-
-            _isDarkTheme = !_isDarkTheme;
-        }
-
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;

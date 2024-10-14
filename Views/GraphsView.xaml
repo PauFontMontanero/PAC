@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="WPF_MVVM_SPA_Template.Views.GraphsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d">
+    <Grid Background="{DynamicResource MainContentBackground}" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10">
+            <Button Name="LineChartButton" Content="Line Chart" Command="{Binding LineChartButton_Click}" Margin="5"/>
+            <Button Name="BarChartButton" Content="Bar Chart" Command="{Binding BarChartButton_Click}" Margin="5"/>
+        </StackPanel>
+
+        <lvc:CartesianChart Name="Gràfic" Series="{Binding SeriesCollection}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Months" Labels="{Binding Months}" ShowLabels="True"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Values" />
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+    </Grid>
+</UserControl>

@@ -1,5 +1,3 @@
 - Graphs
-- ChangeTheme on another view
-- JSON
-- Add data for the graphs
+- CSV
 - Data Validation

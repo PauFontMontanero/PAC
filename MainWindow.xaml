@@ -16,15 +16,28 @@
                      BorderThickness="0"
                      SelectedValue="{Binding SelectedView, Mode=TwoWay}" 
                      SelectedValuePath="Tag">
-                <ListBoxItem Content="Clients" Tag="Option1" 
+                <ListBoxItem Content="Start" Tag="MainPage" 
+                             FontSize="16" 
+                             Padding="10" 
+                             HorizontalContentAlignment="Left" 
+                             Style="{DynamicResource ModernSidebarStyle}"/>
+                <ListBoxItem Content="Clients" Tag="Client" 
+                             FontSize="16" 
+                             Padding="10" 
+                             HorizontalContentAlignment="Left" 
+                             Style="{DynamicResource ModernSidebarStyle}"/>
+                <ListBoxItem Content="Theme" Tag="ChangeTheme" 
+                             FontSize="16" 
+                             Padding="10" 
+                             HorizontalContentAlignment="Left" 
+                             Style="{DynamicResource ModernSidebarStyle}"/>
+                <ListBoxItem Content="About Us" Tag="AboutUs" 
                              FontSize="16" 
                              Padding="10" 
                              HorizontalContentAlignment="Left" 
                              Style="{DynamicResource ModernSidebarStyle}"/>
                 <!-- Add more ListBoxItems here if needed -->
             </ListBox>
-            <Button Content="Change Theme" Command="{Binding ChangeThemeCommand}" 
-                    Margin="0,320,0,0" Height="40" Style="{StaticResource ChangeThemeButton}"/>
         </StackPanel>
         <!-- Secció de contingut dinàmic (Grid) -->
         <Grid Name="MainContent" Background="{DynamicResource MainContentBackground}" Margin="10">
