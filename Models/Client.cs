@@ -11,10 +11,12 @@ namespace WPF_MVVM_SPA_Template.Models
         public string? Email { get; set; }
         public int? Telephone { get; set; }
         public DateTime? Created { get; set; }
+        public int[] RandomMonthlyValues { get; set; }
 
-        public static int[] RandomMonthlyValues { get; } = GenerateRandomValues();
-
-        public Client() { }
+        public Client()
+        {
+            RandomMonthlyValues = GenerateRandomValues();
+        }
 
         public Client(Client existingClient)
         {
@@ -29,6 +31,7 @@ namespace WPF_MVVM_SPA_Template.Models
             Email = existingClient.Email;
             Telephone = existingClient.Telephone;
             Created = existingClient.Created;
+            RandomMonthlyValues = existingClient.RandomMonthlyValues;
         }
 
         private static int[] GenerateRandomValues()

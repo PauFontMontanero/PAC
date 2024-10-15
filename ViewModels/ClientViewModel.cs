@@ -1,24 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using CsvHelper;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
+using System.Xml.Linq;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
-    //Els ViewModels deriven de INotifyPropertyChanged per poder fer Binding de propietats
     class ClientViewModel : INotifyPropertyChanged
     {
-        // Referència al ViewModel principal
         private readonly MainViewModel _mainViewModel;
 
-        // Col·lecció de Students (podrien carregar-se d'una base de dades)
-        // ObservableCollection és una llista que notifica els canvis a la vista
         public ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
 
-        // Propietat per controlar l'estudiant seleccionat a la vista
         private Client? _oldClient;
         public Client? OldClient
         {
@@ -41,7 +40,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             set { _selectedClient = value; OnPropertyChanged(); }
         }
 
-        // RelayCommands connectats via Binding als botons de la vista
         public RelayCommand AddClientCommand { get; set; }
         public RelayCommand UpdateClientCommand { get; set; }
         public RelayCommand DelClientCommand { get; set; }
@@ -50,18 +48,36 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public ClientViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-            // Carreguem estudiants a memòria mode de prova
-            Clients.Add(new Client { Id = 1, Name = "David", Surname = "Font", Email = "davidfont@gmail.com", Created= DateTime.Now, Telephone = 938586485});
-            Clients.Add(new Client { Id = 2, Name = "Jordi", Surname = "Aumatell", Email = "jordiaumatell@gmail.com", Created = DateTime.Now, Telephone = 938586484 });
 
-            // Inicialitzem els diferents commands disponibles (accions)
             AddClientCommand = new RelayCommand(x => AddClient());
             UpdateClientCommand = new RelayCommand(x => UpdateClient());
             DelClientCommand = new RelayCommand(x => DelClient());
             ShowDataCommand = new RelayCommand(x => ShowDataClient());
         }
 
-        //Mètodes per afegir i eliminar estudiants de la col·lecció
+        public void ImportClients(string filePath)
+        {
+            using (var reader = new StreamReader(filePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Client>().ToList();
+                Clients.Clear();
+                foreach (var record in records)
+                {
+                    Clients.Add(record);
+                }
+            }
+        }
+
+        public void ExportClients(string filePath)
+        {
+            using (var writer = new StreamWriter(filePath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(Clients);
+            }
+        }
+
         private void AddClient()
         {
             AddClientViewModel AddClientVM = new AddClientViewModel(_mainViewModel, this);
@@ -70,29 +86,25 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         private void DelClient()
         {
-            if (MessageBox.Show("Vols borrar el client?",
-                    "Confirm delete",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Vols borrar el client?", "Confirm delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 if (SelectedClient != null)
                     Clients.Remove(SelectedClient);
             }
-
         }
 
         private void UpdateClient()
         {
             if (SelectedClient != null)
             {
-                // Pass 'this' as the second parameter
                 UpdateClientViewModel updateClientVM = new UpdateClientViewModel(_mainViewModel, this)
                 {
-                    SelectedClient = new Client(SelectedClient) // Ensure a copy is passed to avoid direct modification
+                    SelectedClient = new Client(SelectedClient)
                 };
                 _mainViewModel.CurrentView = new UpdateClientView { DataContext = updateClientVM };
             }
         }
+
         private void ShowDataClient()
         {
             if (SelectedClient != null)
@@ -102,13 +114,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
         }
 
-
-        // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }

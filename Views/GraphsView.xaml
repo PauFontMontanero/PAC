@@ -10,10 +10,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10">
@@ -21,13 +23,14 @@
             <Button Name="BarChartButton" Content="Bar Chart" Command="{Binding BarChartButton_Click}" Margin="5"/>
         </StackPanel>
 
-        <lvc:CartesianChart Name="Gràfic" Series="{Binding SeriesCollection}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+        <lvc:CartesianChart Name="Gràfic" Series="{Binding SeriesCollection}" Zoom="Xy" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" >
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Months" Labels="{Binding Months}" ShowLabels="True"/>
+                <lvc:Axis Title="Months" Labels="{Binding Months}" />
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Values" />
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
+        <Button Name="Back" Content="Back" Grid.Row="2" Grid.Column="2" Command="{Binding BackCommand}" IsEnabled="{Binding SelectedClient}" Style="{StaticResource ModernSecundaryButtonStyle}" Width="60" Height="40" Cursor="Hand"/>
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WPF_MVVM_SPA_Template.Models;
 using System.Windows.Input;
+using WPF_MVVM_SPA_Template.Views;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
@@ -13,8 +14,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         private readonly MainViewModel _mainViewModel;
         private Client _client;
 
-        public ICommand LineChartButton_Click { get; set; }
-        public ICommand BarChartButton_Click { get; set; }
+        public RelayCommand BackCommand { get; set; }
+        public RelayCommand LineChartButton_Click { get; set; }
+        public RelayCommand BarChartButton_Click { get; set; }
 
         private SeriesCollection _seriesCollection;
         public SeriesCollection SeriesCollection
@@ -39,6 +41,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
             LineChartButton_Click = new RelayCommand(x => LineChart());
             BarChartButton_Click = new RelayCommand(x => BarChart());
+            BackCommand = new RelayCommand(x => Back());
 
             // Initialize with a default chart type
             LineChart();
@@ -51,7 +54,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 new LineSeries
                 {
                     Title = $"{_client.Name}'s Monthly Values",
-                    Values = new ChartValues<int>(Client.RandomMonthlyValues) // Replace with actual monthly data if available
+                    Values = new ChartValues<int>(_client.RandomMonthlyValues)
                 }
             };
         }
@@ -63,9 +66,14 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 new ColumnSeries
                 {
                     Title = $"{_client.Name}'s Monthly Values",
-                    Values = new ChartValues<int>(Client.RandomMonthlyValues) // Replace with actual monthly data if available
+                    Values = new ChartValues<int>(_client.RandomMonthlyValues)
                 }
             };
+        }
+
+        private void Back()
+        {
+            _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
