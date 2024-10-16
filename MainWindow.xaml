@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WPF_MVVM_SPA_Template"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="{DynamicResource WindowBackground}">
+        Background="{DynamicResource WindowBackground}"
+        WindowStartupLocation="CenterScreen">
     <DockPanel>
         <!-- Barra de navegació lateral estil SPA amb ListBox -->
         <StackPanel DockPanel.Dock="Left" Width="100" Background="{DynamicResource SidebarBackground}">
