@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
+             xmlns:myLibrary="clr-namespace:CustomControlsLib;assembly=CustomControlsLib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -24,16 +25,15 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Name="LBNom" Content="Nom" VerticalAlignment="Center"/>
-                        <TextBox Name="TBNom" Grid.Column="1" Margin="10,0,0,0" Text="{Binding NewClient.Name, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource TextBoxBackground}" Foreground="{DynamicResource TextBoxForeground}"/>
+                        <myLibrary:MinLengthTextBox Name="TBNom" Grid.Column="1" Margin="10,0,0,0" Text="{Binding NewClient.Name, UpdateSourceTrigger=PropertyChanged}" MinLength="3" Background="{DynamicResource TextBoxBackground}" Foreground="{DynamicResource TextBoxForeground}"/>
                     </Grid>
-
                     <Grid Margin="0,0,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Name="LBCognom" Content="Cognom" VerticalAlignment="Center"/>
-                        <TextBox Name="TBCognom" Grid.Column="1" Margin="10,0,0,0" Text="{Binding NewClient.Surname, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource TextBoxBackground}"/>
+                        <myLibrary:MinLengthTextBox Name="TBCognom" Grid.Column="1" Margin="10,0,0,0" Text="{Binding NewClient.Surname, UpdateSourceTrigger=PropertyChanged}" MinLength="3" Background="{DynamicResource TextBoxBackground}"/>
                     </Grid>
 
                     <Grid Margin="0,0,0,10">
@@ -42,7 +42,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Name="LBEmail" Content="Correu Electronic" VerticalAlignment="Center"/>
-                        <TextBox Name="TBEmail" Grid.Column="1" Margin="10,0,0,0" Text="{Binding NewClient.Email, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource TextBoxBackground}"/>
+                        <myLibrary:EmailTextBox Name="TBEmail" Grid.Column="1" Margin="10,0,0,0" Email="{Binding NewClient.Email, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource TextBoxBackground}"/>
                     </Grid>
 
                     <Grid Margin="0,0,0,10">
@@ -51,7 +51,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Name="LBTelephone" Content="Telefon" VerticalAlignment="Center"/>
-                        <TextBox Name="TBTelephone" Grid.Column="1" Margin="10,0,0,0" Text="{Binding NewClient.Telephone, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource TextBoxBackground}"/>
+                        <myLibrary:PhoneMaskTextBox Name="TBTelephone" Grid.Column="1" Margin="10,0,0,0" PhoneNumber="{Binding NewClient.Telephone, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource TextBoxBackground}"/>
                     </Grid>
 
                     <Grid Margin="0,0,0,10">

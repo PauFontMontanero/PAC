@@ -51,42 +51,6 @@ internal class AddClientViewModel : INotifyPropertyChanged
     {
         var errors = new List<string>();
 
-        // Validate Name
-        if (string.IsNullOrWhiteSpace(NewClient.Name))
-        {
-            errors.Add("Name cannot be empty.");
-        }
-        else if (!char.IsUpper(NewClient.Name[0]))
-        {
-            errors.Add("Name must start with an uppercase letter.");
-        }
-
-        // Validate Surname
-        if (string.IsNullOrWhiteSpace(NewClient.Surname))
-        {
-            errors.Add("Surname cannot be empty.");
-        }
-        else if (!char.IsUpper(NewClient.Surname[0]))
-        {
-            errors.Add("Surname must start with an uppercase letter.");
-        }
-
-        // Validate Email
-        if (string.IsNullOrWhiteSpace(NewClient.Email))
-        {
-            errors.Add("Email cannot be empty.");
-        }
-        else if (!IsValidEmail(NewClient.Email))
-        {
-            errors.Add("Invalid email format.");
-        }
-
-        // Validate Telephone
-        if (NewClient.Telephone == null || NewClient.Telephone.ToString().Length != 9)
-        {
-            errors.Add("Telephone must be 9 digits.");
-        }
-
         // Validate Created Date
         if (!NewClient.Created.HasValue)
         {
@@ -94,12 +58,6 @@ internal class AddClientViewModel : INotifyPropertyChanged
         }
 
         return errors;
-    }
-
-    private bool IsValidEmail(string email)
-    {
-        var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-        return System.Text.RegularExpressions.Regex.IsMatch(email, emailPattern);
     }
 
     private void DeclineChanges()
