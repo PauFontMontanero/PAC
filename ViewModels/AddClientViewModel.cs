@@ -16,11 +16,39 @@ internal class AddClientViewModel : INotifyPropertyChanged
     public RelayCommand DeclineCommand { get; set; }
 
     private Client _newClient;
-
     public Client NewClient
     {
         get { return _newClient; }
         set { _newClient = value; OnPropertyChanged(); }
+    }
+
+    // Properties to track control validation states
+    private bool _isNameValid;
+    public bool IsNameValid
+    {
+        get { return _isNameValid; }
+        set { _isNameValid = value; OnPropertyChanged(); }
+    }
+
+    private bool _isSurnameValid;
+    public bool IsSurnameValid
+    {
+        get { return _isSurnameValid; }
+        set { _isSurnameValid = value; OnPropertyChanged(); }
+    }
+
+    private bool _isEmailValid;
+    public bool IsEmailValid
+    {
+        get { return _isEmailValid; }
+        set { _isEmailValid = value; OnPropertyChanged(); }
+    }
+
+    private bool _isPhoneValid;
+    public bool IsPhoneValid
+    {
+        get { return _isPhoneValid; }
+        set { _isPhoneValid = value; OnPropertyChanged(); }
     }
 
     public AddClientViewModel(MainViewModel mainViewModel, ClientViewModel clientViewModel)
@@ -35,7 +63,6 @@ internal class AddClientViewModel : INotifyPropertyChanged
     private void AcceptChanges()
     {
         var errors = ValidateFields();
-
         if (errors.Count > 0)
         {
             MessageBox.Show(string.Join("\n", errors), "Validation Errors", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -51,11 +78,20 @@ internal class AddClientViewModel : INotifyPropertyChanged
     {
         var errors = new List<string>();
 
-        // Validate Created Date
+        if (!IsNameValid)
+            errors.Add("Name must be at least 3 characters long.");
+
+        if (!IsSurnameValid)
+            errors.Add("Surname must be at least 3 characters long.");
+
+        if (!IsEmailValid)
+            errors.Add("Please enter a valid email address.");
+
+        if (!IsPhoneValid)
+            errors.Add("Please enter a valid phone number.");
+
         if (!NewClient.Created.HasValue)
-        {
             errors.Add("Date of Registration cannot be empty.");
-        }
 
         return errors;
     }

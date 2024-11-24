@@ -20,7 +20,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public UpdateClientViewModel UpdateClientVM { get; set; }
         public AddClientViewModel AddClientVM { get; set; }
 
-        public string CSVPATH = "C:\\Users\\10049183\\Source\\Repos\\PAC\\Data.csv";
+        public string CSVPATH;
 
 
 
@@ -49,6 +49,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         public MainViewModel()
         {
+            CSVPATH = GetDataFilePath();
+
             // Inicialitzem els diferents ViewModels
             ClientVM = new ClientViewModel(this);
             StartVM = new StartViewModel(this);
@@ -91,6 +93,15 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        private string GetDataFilePath()
+        {
+            // Gets the directory where the executable is running
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Go up to the project root (adjust the number of .. based on your build output location)
+            string projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..\\..\\.."));
+            // Combine with the data file name
+            return Path.Combine(projectRoot, "Data.csv");
         }
     }
 }

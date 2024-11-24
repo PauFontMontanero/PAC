@@ -5,16 +5,26 @@
     <Color x:Key="ListBoxBackgroundColor">#34495E</Color>
     <Color x:Key="ListBoxForegroundColor">White</Color>
     <Color x:Key="MainContentBackgroundColor">#2C3E50</Color>
+    <Color x:Key="PrimaryButtonBackgroundColor">#3498DB</Color>
+    <Color x:Key="PrimaryButtonBorderColor">#2980B9</Color>
+    <Color x:Key="SecondaryButtonBackgroundColor">#8A1B1B</Color>
+    <Color x:Key="SecondaryButtonBorderColor">#A02525</Color>
+    <Color x:Key="TextColor">White</Color>
 
     <SolidColorBrush x:Key="WindowBackground" Color="#2C3E50"/>
     <SolidColorBrush x:Key="SidebarBackground" Color="{StaticResource SidebarBackgroundColor}"/>
     <SolidColorBrush x:Key="ListBoxBackground" Color="{StaticResource ListBoxBackgroundColor}"/>
     <SolidColorBrush x:Key="ListBoxForeground" Color="{StaticResource ListBoxForegroundColor}"/>
     <SolidColorBrush x:Key="MainContentBackground" Color="{StaticResource MainContentBackgroundColor}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBackground" Color="{StaticResource PrimaryButtonBackgroundColor}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBorder" Color="{StaticResource PrimaryButtonBorderColor}"/>
+    <SolidColorBrush x:Key="SecondaryButtonBackground" Color="{StaticResource SecondaryButtonBackgroundColor}"/>
+    <SolidColorBrush x:Key="SecondaryButtonBorder" Color="{StaticResource SecondaryButtonBorderColor}"/>
+    <SolidColorBrush x:Key="TextForeground" Color="{StaticResource TextColor}"/>
 
     <Style x:Key="ModernSidebarStyle" TargetType="ListBoxItem">
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#1C1C1C"/>
+        <Setter Property="Background" Value="#2C3E50"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="FontSize" Value="16"/>
@@ -28,10 +38,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#2A2A2A"/>
+                            <Setter TargetName="Bd" Property="Background" Value="#34495E"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#3A3A3A"/>
+                            <Setter TargetName="Bd" Property="Background" Value="#1ABC9C"/>
                             <Setter Property="FontWeight" Value="Bold"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -52,7 +62,6 @@
             <Setter.Value>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="#8c221c"/>
-                    <!-- Changed to red -->
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="FontWeight" Value="Bold"/>
                     <Setter Property="BorderBrush" Value="#34495E"/>
@@ -65,7 +74,6 @@
             <Setter.Value>
                 <Style TargetType="DataGridRowHeader">
                     <Setter Property="Background" Value="#8c221c"/>
-                    <!-- Changed to red -->
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderBrush" Value="#34495E"/>
                     <Setter Property="BorderThickness" Value="1"/>
@@ -78,7 +86,7 @@
 
     <Style x:Key="ModernLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Foreground" Value="#E0E0E0"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextForeground}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,5,5,0"/>
     </Style>
@@ -109,8 +117,8 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5,5"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#3498DB"/>
-        <Setter Property="BorderBrush" Value="#2980B9"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryButtonBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryButtonBorder}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Cursor" Value="Hand"/>
@@ -143,8 +151,8 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5,5"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#8A1B1B"/>
-        <Setter Property="BorderBrush" Value="#A02525"/>
+        <Setter Property="Background" Value="{StaticResource SecondaryButtonBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SecondaryButtonBorder}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Cursor" Value="Hand"/>

@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="About Us" FontWeight="Bold" FontSize="16" />
-        <TextBlock Grid.Row="1" Text="We are Pau and Eloi, two students with a lot of enthusiasm for the coding world. We are passionate about learning and creating amazing applications!" FontSize="14" TextWrapping="Wrap" />
+        <TextBlock Grid.Row="0" Text="About Us" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextForeground}" />
+        <TextBlock Grid.Row="1" Text="We are Pau and Eloi, two students with a lot of enthusiasm for the coding world. We are passionate about learning and creating amazing applications!" FontSize="14" TextWrapping="Wrap" Foreground="{DynamicResource TextForeground}" />
     </Grid>
 </UserControl>

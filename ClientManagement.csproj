@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Reference Include="CustomControlsLib">
-      <HintPath>bin\Debug\net8.0-windows\CustomControlsLib.dll</HintPath>
+      <HintPath>..\CustomControlsLib\bin\Debug\net8.0-windows\CustomControlsLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -19,6 +19,35 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         private Client? _oldClient;
         private Client? _selectedClient;
 
+        // Properties to track control validation states
+        private bool _isNameValid;
+        public bool IsNameValid
+        {
+            get { return _isNameValid; }
+            set { _isNameValid = value; OnPropertyChanged(); }
+        }
+
+        private bool _isSurnameValid;
+        public bool IsSurnameValid
+        {
+            get { return _isSurnameValid; }
+            set { _isSurnameValid = value; OnPropertyChanged(); }
+        }
+
+        private bool _isEmailValid;
+        public bool IsEmailValid
+        {
+            get { return _isEmailValid; }
+            set { _isEmailValid = value; OnPropertyChanged(); }
+        }
+
+        private bool _isPhoneValid;
+        public bool IsPhoneValid
+        {
+            get { return _isPhoneValid; }
+            set { _isPhoneValid = value; OnPropertyChanged(); }
+        }
+
         public Client? SelectedClient
         {
             get { return _selectedClient; }
@@ -30,6 +59,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                     if (_selectedClient != null)
                     {
                         _oldClient = new Client(_selectedClient);
+                        UpdateValidationProperties();
                     }
                     OnPropertyChanged();
                 }
@@ -56,12 +86,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 }
                 else
                 {
-                    // Find the existing client in the Clients collection
                     var existingClient = _clientViewModel.Clients.FirstOrDefault(c => c.Id == _selectedClient.Id);
                     var index = _clientViewModel.Clients.IndexOf(existingClient);
                     if (existingClient != null)
                     {
-                        // Update the properties of the existing client
                         _clientViewModel.Clients[index] = new Client(_selectedClient);
                     }
                     _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
@@ -73,55 +101,22 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             var errors = new List<string>();
 
-            // Name validation
-            if (string.IsNullOrWhiteSpace(SelectedClient?.Name))
-            {
-                errors.Add("Name cannot be empty.");
-            }
-            else if (!char.IsUpper(SelectedClient.Name[0]))
-            {
-                errors.Add("Name must start with an uppercase letter.");
-            }
+            if (!IsNameValid)
+                errors.Add("Name must be at least 3 characters long.");
 
-            // Surname validation
-            if (string.IsNullOrWhiteSpace(SelectedClient?.Surname))
-            {
-                errors.Add("Surname cannot be empty.");
-            }
-            else if (!char.IsUpper(SelectedClient.Surname[0]))
-            {
-                errors.Add("Surname must start with an uppercase letter.");
-            }
+            if (!IsSurnameValid)
+                errors.Add("Surname must be at least 3 characters long.");
 
-            // Email validation
-            if (string.IsNullOrWhiteSpace(SelectedClient?.Email))
-            {
-                errors.Add("Email cannot be empty.");
-            }
-            else if (!IsValidEmail(SelectedClient.Email))
-            {
-                errors.Add("Invalid email format.");
-            }
+            if (!IsEmailValid)
+                errors.Add("Please enter a valid email address.");
 
-            // Telephone validation
-            if (SelectedClient.Telephone == null || SelectedClient.Telephone.ToString().Length != 9)
-            {
-                errors.Add("Telephone must be 9 digits.");
-            }
+            if (!IsPhoneValid)
+                errors.Add("Please enter a valid phone number.");
 
-            // Created Date validation
-            if (!SelectedClient.Created.HasValue)
-            {
+            if (!SelectedClient?.Created.HasValue ?? true)
                 errors.Add("Date of Registration cannot be empty.");
-            }
 
             return errors;
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return System.Text.RegularExpressions.Regex.IsMatch(email, emailPattern);
         }
 
         private void DeclineChanges()
@@ -131,7 +126,28 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 _selectedClient = new Client(_oldClient);
                 OnPropertyChanged(nameof(SelectedClient));
             }
+
             _mainViewModel.CurrentView = new ClientView { DataContext = _mainViewModel.ClientVM };
+        }
+
+        private void UpdateValidationProperties()
+        {
+            IsNameValid = !string.IsNullOrWhiteSpace(_selectedClient.Name) && _selectedClient.Name.Length >= 3;
+            IsSurnameValid = !string.IsNullOrWhiteSpace(_selectedClient.Surname) && _selectedClient.Surname.Length >= 3;
+            IsEmailValid = IsValidEmail(_selectedClient.Email);
+            IsPhoneValid = IsValidPhone(_selectedClient.Telephone);
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            // Add your email validation logic here
+            return !string.IsNullOrWhiteSpace(email);
+        }
+
+        private bool IsValidPhone(int? phone)
+        {
+            // Add your phone number validation logic here
+            return phone.HasValue && !string.IsNullOrWhiteSpace(phone.Value.ToString());
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
