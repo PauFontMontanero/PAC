@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/26/2024 17:36:17" ReportInfo.Modified="11/26/2024 21:47:01" ReportInfo.CreatorVersion="2025.1.0.0">
+  <Dictionary/>
+  <ReportPage Name="Page1" RawPaperSize="9" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="66.15">
+      <TextObject Name="Text7" Left="37.8" Top="9.45" Width="217.35" Height="37.8" Text="Clients Report" HorzAlign="Center" Font="Arial, 20.25pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="67.93" Width="718.2" Height="56.7">
+      <TextObject Name="Text16" Left="37.8" Top="28.35" Width="30.24" Height="18.9" Border.Lines="Bottom" Fill.Color="LightGray" Text="ID" HorzAlign="Center" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text17" Left="66.15" Top="28.35" Width="94.5" Height="18.9" Border.Lines="Bottom" Fill.Color="LightGray" Text="NAME" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text18" Left="160.65" Top="28.35" Width="94.5" Height="18.9" Border.Lines="Bottom" Fill.Color="LightGray" Text="SURNAME" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text19" Left="255.15" Top="28.35" Width="151.2" Height="18.9" Border.Lines="Bottom" Fill.Color="LightGray" Text="EMAIL" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text20" Left="406.35" Top="28.35" Width="94.5" Height="18.9" Border.Lines="Bottom" Fill.Color="LightGray" Text="TELEPHONE" HorzAlign="Right" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text21" Left="500.85" Top="28.35" Width="122.85" Height="18.9" Border.Lines="Bottom" Fill.Color="LightGray" Text="REGISTRATION" HorzAlign="Center" Font="Arial, 9.75pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="126.41" Width="718.2" Height="37.8">
+      <TextObject Name="Text10" Left="37.8" Width="30.24" Height="18.9" Text="[Clients.Id]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="66.15" Width="94.5" Height="18.9" Text="[Clients.Name]" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="160.65" Width="94.5" Height="18.9" Text="[Clients.Surname]" Font="Arial, 10pt"/>
+      <TextObject Name="Text13" Left="255.15" Width="151.2" Height="18.9" Text="[Clients.Email]" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="406.35" Width="94.5" Height="18.9" Text="[Clients.Telephone]" HorzAlign="Right" Font="Arial, 10pt"/>
+      <TextObject Name="Text15" Left="500.85" Width="122.85" Height="18.9" Text="[Clients.Created]" HorzAlign="Center" Font="Arial, 10pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="165.98" Width="718.2" Height="18.9">
+      <TextObject Name="Text8" Left="236.25" Width="132.3" Height="18.9" Text="ClientManagement" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Left="585.9" Width="94.5" Height="18.9" Border.Lines="Top" Text="Page [Page#] of [TotalPages#]" HorzAlign="Right" Font="Arial, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
